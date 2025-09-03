@@ -84,6 +84,7 @@ def createNew(path,user):
 #Deletes documents and folders
 def deleteContent(path,user):
     deleteType = str(input("\nDo you want to delete files or a folder?\nFile\nFolder\n"))
+    #Deletes folders
     if deleteType == "Folder" or deleteType == "folder" or deleteType == "FOLDER":
         print("\nCAUTION : BE CAREFUL WHEN TYPING THE FOLDER NAME, DO NOT REMOVE SYSTEM FOLDERS\n")
         folderName = str(input("\nType in name of the folder you want to delete\n"))
@@ -101,6 +102,25 @@ def deleteContent(path,user):
             os.system(f"rm -r /home/{user}/Pictures/{folderName}")
         elif path == "Videos" or path == "videos" or path == "VIDEOS":
             os.system(f"rm -r /home/{user}/Videos/{folderName}")
+        else:
+            print("Invalid path")
+    if deleteType == "File" or deleteType == "file" or deleteType == "FILE":
+        fileName = str(input("\nType in the name of the files that you want to delete\n"))
+        fileType = str(input("\nType in the type of file that you want to delete\n"))
+        if path == "Home" or path == "home" or path == "HOME":
+            os.system(f"rm -r /$HOME/{fileName}.{fileType}")
+        elif path == "Root" or path == "root" or path == "ROOT":
+            print("Error : It is not wise to manipulate root folder in linux")
+        elif path == "Desktop" or path == "desktop" or path == "DESKTOP":
+            os.system(f"rm -r /home/{user}/Desktop/{fileName}.{fileType}")
+        elif path == "Documents" or path == "documents" or path == "DOCUMENTS":
+            os.system(f"rm -r /home/{user}/Documents/{fileName}.{fileType}")
+        elif path == "Downloads" or path == "downloads" or path == "DOWNLOADS":
+            os.system(f"rm -r /home/{user}/Downloads/{fileName}.{fileType}")
+        elif path == "Pictures" or path == "pictures" or path == "PICTURES":
+            os.system(f"rm -r /home/{user}/Pictures/{fileName}.{fileType}")
+        elif path == "Videos" or path == "videos" or path == "VIDEOS":
+            os.system(f"rm -r /home/{user}/Videos/{fileName}.{fileType}")
         else:
             print("Invalid path")
 
