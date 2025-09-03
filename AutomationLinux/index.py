@@ -1,5 +1,5 @@
 import os
-from errno import ELIBACC
+import getpass
 
 print("What kind of task do you want to do?\nList files\nCreate new files or folders\nDelete documents\n")
 
@@ -8,7 +8,7 @@ task = str(input("\nType selected action\nList\nCreate\nDelete\n"))
 #Used to figure out where the user wants to perform their action
 path = str(input("\nWhere do you want to do the action\nHome\nDesktop\nDocuments\nDownloads\nPictures\nVideos\nRoot\n"))
 #Used to figure out the users home directory
-user = str(input("\nType in the name of your home directory\n"))
+user = getpass.getuser()
 
 #Lists files from the desired path using ls.
 def listFiles(path,user):
