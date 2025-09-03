@@ -1,9 +1,11 @@
 import os
+from errno import ELIBACC
 
 print("What kind of task do you want to do?\nList files\nCreate new files or folders\nDelete documents\n")
 
 task = str(input("\nType selected action\nList\nCreate\nDelete\n"))
 path = str(input("\nWhere do you want to do the action\nHome\nDesktop\nDocuments\nDownloads\nPictures\nVideos\nRoot\n"))
+user = str(input("\nType in the name of your home directory\n"))
 
 #Lists files from the most common folders using ls.
 def listFiles(path,user):
@@ -25,16 +27,53 @@ def listFiles(path,user):
         print("Invalid path")
 
 
-def createNew(path):
+#Create new files or folders
+def createNew(path,user):
     executionType = str(input("\nDo you want to create a new file or folder?\nFile\nFolder\n"))
     if executionType == "Folder" or executionType == "folder" or executionType == "FOLDER":
         folderName = str(input("\nType in name of the folder you want to create\n"))
-
-
+        if path == "Home" or path == "home" or path == "HOME":
+            os.system(f"mkdir /$HOME/{folderName}")
+        elif path == "Root" or path == "root" or path == "ROOT":
+            print("Error : It is not wise to manipulate root folder in linux")
+        elif path == "Desktop" or path == "desktop" or path == "DESKTOP":
+            os.system(f"mkdir /home/{user}/Desktop/{folderName}")
+        elif path == "Documents" or path == "documents" or path == "DOCUMENTS":
+            os.system(f"mkdir /home/{user}/Documents/{folderName}")
+        elif path == "Downloads" or path == "downloads" or path == "DOWNLOADS":
+            os.system(f"mkdir /home/{user}/Downloads/{folderName}")
+        elif path == "Pictures" or path == "pictures" or path == "PICTURES":
+            os.system(f"mkdir /home/{user}/Pictures/{folderName}")
+        elif path == "Videos" or path == "videos" or path == "VIDEOS":
+            os.system(f"mkdir /home/{user}/Videos/{folderName}")
+        else:
+            print("Path not found")
+    elif executionType == "File" or executionType == "file" or executionType == "FILE":
+        amount = int(input("\nHow many files to create?\n"))
+        fileType = str(input("\nWhat kind of file do you want to create?\ntxt\n"))
+        fileName = str(input("\nType in the name that you want for the files\n"))
+        for x in range(1,amount+1):
+            if path == "Home" or path == "home" or path == "HOME":
+                os.system(f"touch /$HOME/{fileName}_{x}.{fileType}")
+            elif path == "Root" or path == "root" or path == "ROOT":
+                print("Error : It is not wise to manipulate root folder in linux")
+            elif path == "Desktop" or path == "desktop" or path == "DESKTOP":
+                os.system(f"touch /home/{user}/Desktop/{fileName}_{x}.{fileType}")
+            elif path == "Documents" or path == "documents" or path == "DOCUMENTS":
+                os.system(f"touch /home/{user}/Documents/{fileName}_{x}.{fileType}")
+            elif path == "Downloads" or path == "downloads" or path == "DOWNLOADS":
+                os.system(f"touch /home/{user}/Downloads/{fileName}_{x}.{fileType}")
+            elif path == "Pictures" or path == "pictures" or path == "PICTURES":
+                os.system(f"touch /home/{user}/Pictures/{fileName}_{x}.{fileType}")
+            elif path == "Videos" or path == "videos" or path == "VIDEOS":
+                os.system(f"touch /home/{user}/Pictures/{fileName}_{x}.{fileType}")
+            else:
+                print("Invalid path")
 
 #Executes selected function
 if task == "List" or task == "list" or task == "LIST":
-    user = str(input("\nType in the name of your home directory\n"))
     listFiles(path,user)
 elif task == "Create" or task == "create" or task == "CREATE":
-    createNew(path)
+    createNew(path,user)
+else:
+    print("Invalid task")
